@@ -10,6 +10,11 @@ echo_time_diff () {
   echo "[timing] $1: " "$(date -u -d@"$diff_secs" +"$format")"
 }
 
+# install & populate java8
+sudo yum install -y -q java-1.8.0-openjdk java-1.8.0-openjdk-devel
+echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0" >> /root/.bash_profile
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> /root/.bash_profile
+
 # Make sure we are in the spark-ec2 directory
 pushd /root/spark-ec2 > /dev/null
 

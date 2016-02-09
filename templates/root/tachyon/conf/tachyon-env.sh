@@ -12,18 +12,11 @@
 #
 # The following gives an example:
 
-if [[ `uname -a` == Darwin* ]]; then
-  # Assuming Mac OS X
-  export JAVA_HOME=$(/usr/libexec/java_home)
-  export TACHYON_RAM_FOLDER=/Volumes/ramdisk
-  export TACHYON_JAVA_OPTS="-Djava.security.krb5.realm= -Djava.security.krb5.kdc="
-else
-  # Assuming Linux
-  if [ -z "$JAVA_HOME" ]; then
-    export JAVA_HOME=/usr/lib/jvm/java-1.7.0
-  fi
-  export TACHYON_RAM_FOLDER=/mnt/ramdisk
+# Assuming Linux
+if [ -z "$JAVA_HOME" ]; then
+  export JAVA_HOME=/usr/lib/jvm/java-1.8.0
 fi
+export TACHYON_RAM_FOLDER=/mnt/ramdisk
 
 export JAVA="$JAVA_HOME/bin/java"
 export TACHYON_MASTER_ADDRESS={{active_master}}

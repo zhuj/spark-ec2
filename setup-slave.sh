@@ -7,9 +7,18 @@ if [[ -e /sys/kernel/mm/transparent_hugepage/enabled ]]; then
   echo never > /sys/kernel/mm/transparent_hugepage/enabled
 fi
 
+# install & populate java8
+sudo yum install -y -q java-1.8.0-openjdk java-1.8.0-openjdk-devel
+echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0" >> /root/.bash_profile
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> /root/.bash_profile
+
 # Make sure we are in the spark-ec2 directory
 pushd /root/spark-ec2 > /dev/null
 
+# TODO: Load the environment variables specific to this AMI
+# TODO: source /root/.bash_profile
+
+# Load the cluster variables set by the deploy script
 source ec2-variables.sh
 
 # Set hostname based on EC2 private DNS name, so that it is set correctly

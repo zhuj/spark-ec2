@@ -6,13 +6,23 @@
 # remote nodes.
 
 # The java implementation to use.  Required.
-export JAVA_HOME={{java_home}}
-
-# Extra Java CLASSPATH elements.  Optional.
-# export HADOOP_CLASSPATH=
+if [ -z "$JAVA_HOME" ]; then
+  export JAVA_HOME=/usr/lib/jvm/java-1.8.0
+fi
 
 export HADOOP_HOME="/root/ephemeral-hdfs"
 export HADOOP_MAPREDUCE_HOME="/root/mapreduce"
+
+# Extra Java CLASSPATH elements.  Optional.
+if [ -z "$HADOOP_CLASSPATH" ]; then
+  HADOOP_CLASSPATH="$HADOOP_HOME/share/hadoop/tools/lib/*"
+else
+  HADOOP_CLASSPATH="$HADOOP_CLASSPATH:$HADOOP_HOME/share/hadoop/tools/lib/*"
+fi
+if [ -d "$HADOOP_HOME/share/spark/lib" ]; then
+  HADOOP_CLASSPATH="$HADOOP_CLASSPATH:$HADOOP_HOME/share/spark/lib/*"
+fi
+export HADOOP_CLASSPATH
 
 # The maximum amount of heap to use, in MB. Default is 1000.
 export HADOOP_HEAPSIZE=1000

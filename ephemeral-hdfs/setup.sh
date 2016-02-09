@@ -23,20 +23,14 @@ if [ -f "$NAMENODE_DIR/current/VERSION" ] && [ -f "$NAMENODE_DIR/current/fsimage
   echo "Hadoop namenode appears to be formatted: skipping"
 else
   echo "Formatting ephemeral HDFS namenode..."
-  $EPHEMERAL_HDFS/bin/hadoop namenode -format
+  $EPHEMERAL_HDFS/bin/hadoop namenode -format -force
 fi
 
 echo "Starting ephemeral HDFS..."
 
 # This is different depending on version.
 case "$HADOOP_MAJOR_VERSION" in
-  1)
-    $EPHEMERAL_HDFS/bin/start-dfs.sh
-    ;;
-  2)
-    $EPHEMERAL_HDFS/sbin/start-dfs.sh
-    ;;
-  yarn) 
+  yarn)
     $EPHEMERAL_HDFS/sbin/start-dfs.sh
     echo "Starting YARN"
     $EPHEMERAL_HDFS/sbin/start-yarn.sh
