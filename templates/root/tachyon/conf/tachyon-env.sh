@@ -18,7 +18,6 @@ export TACHYON_RAM_FOLDER=/mnt/ramdisk
 export JAVA="$JAVA_HOME/bin/java"
 export TACHYON_MASTER_ADDRESS={{active_master}}
 export TACHYON_UNDERFS_ADDRESS=hdfs://{{active_master}}:9000
-#export TACHYON_UNDERFS_ADDRESS=hdfs://localhost:9000
 export TACHYON_WORKER_MEMORY_SIZE={{default_tachyon_mem}}
 export TACHYON_UNDERFS_HDFS_IMPL=org.apache.hadoop.hdfs.DistributedFileSystem
 

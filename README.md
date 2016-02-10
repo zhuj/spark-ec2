@@ -10,15 +10,15 @@ This fork works only with yarn (which installs hadoop 2.7.1) and spark version 1
 ### Achtung
 
 The repo is under development, please don't use it until it's ready.
-Overall status: **under construction**
+Overall status: **testing** (on ec2)
 
 ### Goals
 
 * last version of java 8 - **done**
 * last version of scala 2.10 - **done**
-* hadoop 2.7.1 - **done** 
-* hadoop-aws - **under construction** 
-* spark 1.6.x - **under construction** 
+* hadoop 2.7.1 - **done**  
+* spark 1.6.x - **done** 
+* tachyon 0.8.2 - **done**
 
 ### Plans
 

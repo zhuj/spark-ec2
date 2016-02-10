@@ -39,7 +39,7 @@ case "$HADOOP_MAJOR_VERSION" in
     ;;
   *)
      echo "ERROR: Unknown Hadoop version"
-     return -1
+     return 1
 esac
 
 popd > /dev/null

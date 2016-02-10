@@ -12,7 +12,7 @@ case "$HADOOP_MAJOR_VERSION" in
     wget -c http://www.us.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz
     echo "Unpacking Hadoop"
     tar xvzf hadoop-*.tar.gz > /tmp/spark-ec2_hadoop.log
-    rm hadoop-*.tar.gz
+    # CLEANUP: rm hadoop-*.tar.gz
     mv hadoop-2.7.1/ ephemeral-hdfs/
 
     # Have single conf dir

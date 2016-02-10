@@ -93,7 +93,7 @@ for module in $MODULES; do
   echo "Initializing $module"
   module_init_start_time="$(date +'%s')"
   if [[ -e $module/init.sh ]]; then
-    source $module/init.sh
+    source ./$module/init.sh
   fi
   module_init_end_time="$(date +'%s')"
   echo_time_diff "$module init" "$module_init_start_time" "$module_init_end_time"
@@ -112,28 +112,28 @@ chmod u+x /root/spark/conf/spark-env.sh
 
 # Setup each module
 for module in $MODULES; do
+  echo "Setting up $module"
+  module_setup_start_time="$(date +'%s')"
   if [[ -e $module/setup.sh ]]; then
-    echo "Setting up $module"
-    module_setup_start_time="$(date +'%s')"
     source ./$module/setup.sh
-    sleep 0.1
-    module_setup_end_time="$(date +'%s')"
-    echo_time_diff "$module setup" "$module_setup_start_time" "$module_setup_end_time"
-    cd /root/spark-ec2  # guard against setup.sh changing the cwd
   fi
+  sleep 0.1
+  module_setup_end_time="$(date +'%s')"
+  echo_time_diff "$module setup" "$module_setup_start_time" "$module_setup_end_time"
+  cd /root/spark-ec2  # guard against setup.sh changing the cwd
 done
 
 # Clean up all modules
 for module in $MODULES; do
+  echo "Cleaning up $module"
+  module_cleanup_start_time="$(date +'%s')"
   if [[ -e $module/cleanup.sh ]]; then
-    echo "Cleaning up $module"
-    module_cleanup_start_time="$(date +'%s')"
     source ./$module/cleanup.sh
-    sleep 0.1
-    module_cleanup_end_time="$(date +'%s')"
-    echo_time_diff "$module cleanup" "$module_cleanup_start_time" "$module_cleanup_end_time"
-    cd /root/spark-ec2  # guard against setup.sh changing the cwd
   fi
+  sleep 0.1
+  module_cleanup_end_time="$(date +'%s')"
+  echo_time_diff "$module cleanup" "$module_cleanup_start_time" "$module_cleanup_end_time"
+  cd /root/spark-ec2  # guard against setup.sh changing the cwd
 done
 
 
