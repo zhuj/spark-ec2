@@ -60,6 +60,7 @@ if os.getenv("SPARK_WORKER_INSTANCES") != "":
   worker_cores = max(slave_cpus / worker_instances, 1)
 
 template_vars = {
+  "java_home": "/usr/lib/jvm/java-1.8.0",
   "master_list": os.getenv("MASTERS"),
   "active_master": os.getenv("MASTERS").split("\n")[0],
   "slave_list": os.getenv("SLAVES"),
@@ -73,7 +74,6 @@ template_vars = {
   "spark_version": os.getenv("SPARK_VERSION"),
   "tachyon_version": os.getenv("TACHYON_VERSION"),
   "hadoop_major_version": os.getenv("HADOOP_MAJOR_VERSION"),
-  "java_home": os.getenv("JAVA_HOME"),
   "default_tachyon_mem": "%dMB" % tachyon_mb,
   "system_ram_mb": "%d" % system_ram_mb,
   "aws_access_key_id": os.getenv("AWS_ACCESS_KEY_ID"),

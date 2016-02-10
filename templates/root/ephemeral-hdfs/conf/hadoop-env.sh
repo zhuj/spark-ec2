@@ -6,9 +6,7 @@
 # remote nodes.
 
 # The java implementation to use.  Required.
-if [ -z "$JAVA_HOME" ]; then
-  export JAVA_HOME=/usr/lib/jvm/java-1.8.0
-fi
+export JAVA_HOME="{{java_home}}"
 
 export HADOOP_HOME="/root/ephemeral-hdfs"
 export HADOOP_MAPREDUCE_HOME="/root/mapreduce"

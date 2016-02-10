@@ -10,12 +10,9 @@
 # - TACHYON_WORKER_MEMORY_SIZE, to set how much memory to use (e.g. 1000mb, 2gb) per worker
 # - TACHYON_RAM_FOLDER, to set where worker stores in memory data
 #
-# The following gives an example:
 
-# Assuming Linux
-if [ -z "$JAVA_HOME" ]; then
-  export JAVA_HOME=/usr/lib/jvm/java-1.8.0
-fi
+
+export JAVA_HOME="{{java_home}}"
 export TACHYON_RAM_FOLDER=/mnt/ramdisk
 
 export JAVA="$JAVA_HOME/bin/java"
