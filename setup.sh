@@ -12,6 +12,8 @@ echo_time_diff () {
 
 # install & populate java8
 sudo yum install -y -q java-1.8.0-openjdk java-1.8.0-openjdk-devel
+sudo yum remove -y java-1.7.0*
+
 echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0" >> /root/.bash_profile
 echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> /root/.bash_profile
 
@@ -110,13 +112,29 @@ chmod u+x /root/spark/conf/spark-env.sh
 
 # Setup each module
 for module in $MODULES; do
-  echo "Setting up $module"
-  module_setup_start_time="$(date +'%s')"
-  source ./$module/setup.sh
-  sleep 0.1
-  module_setup_end_time="$(date +'%s')"
-  echo_time_diff "$module setup" "$module_setup_start_time" "$module_setup_end_time"
-  cd /root/spark-ec2  # guard against setup.sh changing the cwd
+  if [[ -e $module/setup.sh ]]; then
+    echo "Setting up $module"
+    module_setup_start_time="$(date +'%s')"
+    source ./$module/setup.sh
+    sleep 0.1
+    module_setup_end_time="$(date +'%s')"
+    echo_time_diff "$module setup" "$module_setup_start_time" "$module_setup_end_time"
+    cd /root/spark-ec2  # guard against setup.sh changing the cwd
+  fi
 done
+
+# Clean up all modules
+for module in $MODULES; do
+  if [[ -e $module/cleanup.sh ]]; then
+    echo "Cleaning up $module"
+    module_cleanup_start_time="$(date +'%s')"
+    source ./$module/cleanup.sh
+    sleep 0.1
+    module_cleanup_end_time="$(date +'%s')"
+    echo_time_diff "$module cleanup" "$module_cleanup_start_time" "$module_cleanup_end_time"
+    cd /root/spark-ec2  # guard against setup.sh changing the cwd
+  fi
+done
+
 
 popd > /dev/null

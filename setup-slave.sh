@@ -9,6 +9,8 @@ fi
 
 # install & populate java8
 sudo yum install -y -q java-1.8.0-openjdk java-1.8.0-openjdk-devel
+sudo yum remove -y java-1.7.0*
+
 echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0" >> /root/.bash_profile
 echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> /root/.bash_profile
 

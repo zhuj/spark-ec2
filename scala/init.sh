@@ -11,7 +11,7 @@ fi
 SCALA_VERSION="2.10.6"
 
 echo "Unpacking Scala"
-wget http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz
+wget -c http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz
 tar xvzf scala-*.tgz > /tmp/spark-ec2_scala.log
 rm scala-*.tgz
 mv `ls -d scala-* | grep -v ec2` scala

@@ -16,6 +16,16 @@
   </property>
 
   <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>{{active_master}}:10020</value>
+  </property>
+
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>{{active_master}}:19888</value>
+  </property>
+
+  <property>
     <name>mapred.tasktracker.map.tasks.maximum</name>
     <value>4</value>
     <description>The maximum number of map tasks that will be run

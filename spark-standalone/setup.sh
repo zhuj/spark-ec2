@@ -27,3 +27,9 @@ sleep 20
 
 # Start Workers
 $BIN_FOLDER/start-slaves.sh
+
+# Create history directory
+[ -d /mnt/spark-events ] || mkdir /mnt/spark-events
+
+# Start history server
+$BIN_FOLDER/start-history-server.sh
