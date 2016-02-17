@@ -52,22 +52,22 @@
 
   <property>
     <name>fs.s3n.awsAccessKeyId</name>
-    <value>{{aws_access_key_id}}</value>
+    <value>{{s3_access_key_id}}</value>
   </property>
 
   <property>
     <name>fs.s3n.awsSecretAccessKey</name>
-    <value>{{aws_secret_access_key}}</value>
+    <value>{{s3_secret_access_key}}</value>
   </property>
 
   <property>
     <name>fs.s3a.access.key</name>
-    <value>{{aws_access_key_id}}</value>
+    <value>{{s3_access_key_id}}</value>
   </property>
 
   <property>
     <name>fs.s3a.secret.key</name>
-    <value>{{aws_secret_access_key}}</value>
+    <value>{{s3_secret_access_key}}</value>
   </property>
 
   <property>
