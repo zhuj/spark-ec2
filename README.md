@@ -9,8 +9,7 @@ This fork works only with yarn (which installs hadoop 2.7.1) and spark version 1
 
 ### Achtung
 
-The repo is under development, please don't use it until it's ready.
-Overall status: **testing** (on ec2)
+Overall status: **testing** (on ec2 - it seems all works fine)
 
 ### Goals
 
