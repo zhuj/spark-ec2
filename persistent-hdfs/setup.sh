@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if false; then
+
 PERSISTENT_HDFS=/root/persistent-hdfs
 
 pushd /root/spark-ec2/persistent-hdfs > /dev/null
@@ -20,3 +22,5 @@ fi
 echo "Persistent HDFS installed, won't start by default..."
 
 popd > /dev/null
+
+fi

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if false; then
+
 pushd /root > /dev/null
 
 if [ -d "persistent-hdfs" ]; then
@@ -27,3 +29,5 @@ esac
 /root/spark-ec2/copy-dir /root/persistent-hdfs
 
 popd > /dev/null
+
+fi
