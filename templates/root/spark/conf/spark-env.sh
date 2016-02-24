@@ -19,12 +19,16 @@ export YARN_CONF_DIR="$YARN_HOME/conf"
 export HADOOP_HOME="$YARN_HOME"
 export HADOOP_CONF_DIR="$YARN_CONF_DIR"
 
+# link hadoop native libraries
+export HADOOP_COMMON_LIB_NATIVE_DIR="$HADOOP_HOME/lib/native"
+export LD_LIBRARY_PATH="$HADOOP_COMMON_LIB_NATIVE_DIR:$LD_LIBRARY_PATH"
+
 export TACHYON_HOME="/root/tachyon"
 
 export SPARK_MASTER_IP={{active_master}}
 export MASTER=`cat /root/spark-ec2/cluster-url`
 
-export SPARK_SUBMIT_LIBRARY_PATH="$SPARK_SUBMIT_LIBRARY_PATH:$HADOOP_HOME/lib/native/"
+export SPARK_SUBMIT_LIBRARY_PATH="$SPARK_SUBMIT_LIBRARY_PATH:$HADOOP_COMMON_LIB_NATIVE_DIR"
 export SPARK_SUBMIT_CLASSPATH="$SPARK_CLASSPATH:$SPARK_SUBMIT_CLASSPATH:$HADOOP_CONF_DIR"
 
 # look at https://github.com/apache/spark/blob/master/docs/hadoop-provided.md

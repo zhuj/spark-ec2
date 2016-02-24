@@ -28,8 +28,8 @@ sleep 20
 # Start Workers
 $BIN_FOLDER/start-slaves.sh
 
-# Create history directory
-[ -d /mnt/spark-events ] || mkdir /mnt/spark-events
+# ensure hdfs directory exists
+/root/ephemeral-hdfs/bin/hdfs dfs -mkdir -p /spark-logs
 
 # Start history server
 $BIN_FOLDER/start-history-server.sh
