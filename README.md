@@ -17,7 +17,7 @@ Overall status: **testing** (on ec2 - it seems all works fine)
 * last version of scala 2.10 - **done**
 * hadoop 2.7.1 - **done**  
 * spark 1.6.x - **done** 
-* tachyon 0.8.2 - **done**
+* alluxio 1.0.0 - **done**
 
 ### Plans
 

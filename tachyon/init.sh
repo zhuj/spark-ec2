@@ -2,33 +2,35 @@
 
 pushd /root > /dev/null
 
-if [ -d "tachyon" ]; then
-  echo "Tachyon seems to be installed. Exiting."
+if [ -d "alluxio" ]; then
+  echo "Alluxio seems to be installed. Exiting."
   return 0
 fi
 
-# Github tag:
-if [[ "$TACHYON_VERSION" == *\|* ]]; then
-  echo "Tachyon git hashes are not yet supported. Please specify a Tachyon release version."
+if [[ "$SPARK_VERSION" == *\|* ]]; then
+  echo "Spark git hashes are not yet supported. Please specify a Spark release version."
   return 1
-elif [[ "$TACHYON_VERSION" != 0.8.* ]]; then
-  echo "Unsupported Tachyon version: $TACHYON_VERSION"
+elif [[ "$SPARK_VERSION" != 1.6.* ]]; then
+  echo "Unsupported Spark version: $SPARK_VERSION"
   return 1
 else
-
-  # TODO: hadoop 2.7.1 (2.6 is still ok)
-  # TODO: current = https://s3.amazonaws.com/Tachyon/tachyon-0.8.2-hadoop2.6-bin.tar.gz
-  wget -c https://s3.amazonaws.com/Tachyon/tachyon-$TACHYON_VERSION-hadoop2.6-bin.tar.gz
-
-  if [ $? != 0 ]; then
-    echo "ERROR: Unknown Tachyon version: $TACHYON_VERSION"
+  if [[ "$ALLUXIO_VERSION" != 1.0.* ]]; then
+    echo "Unsupported Alluxio version: $ALLUXIO_VERSION"
     return 1
   fi
 
-  echo "Unpacking Tachyon"
-  tar xvzf tachyon-*.tar.gz > /tmp/spark-ec2_tachyon.log
-  rm tachyon-*.tar.gz
-  mv `ls -d tachyon-*` tachyon
+  wget -c http://alluxio.org/downloads/files/$ALLUXIO_VERSION/alluxio-$ALLUXIO_VERSION-bin.tar.gz
+
+  if [ $? != 0 ]; then
+    echo "ERROR: Unknown Alluxio version: $ALLUXIO_VERSION"
+    return 1
+  fi
+
+  echo "Unpacking Alluxio"
+  tar xvzf alluxio-*.tar.gz > /tmp/spark-ec2_alluxio.log
+  rm alluxio-*.tar.gz
+  mv `ls -d alluxio-*` alluxio
+  ln -s /root/alluxio /root/tachyon
 fi
 
 popd > /dev/null

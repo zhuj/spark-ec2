@@ -1,9 +1,9 @@
 #!/bin/bash
 
-/root/spark-ec2/copy-dir /root/tachyon
+/root/spark-ec2/copy-dir /root/alluxio
 
-/root/tachyon/bin/tachyon format
+/root/alluxio/bin/alluxio format
 
 sleep 1
 
-/root/tachyon/bin/tachyon-start.sh all Mount
+/root/alluxio/bin/alluxio-start.sh all Mount

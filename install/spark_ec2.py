@@ -55,45 +55,11 @@ SPARK_EC2_VERSION = "1.6.0"
 SPARK_EC2_DIR = os.path.dirname(os.path.realpath(__file__))
 
 VALID_SPARK_VERSIONS = set([
-    "0.7.3",
-    "0.8.0",
-    "0.8.1",
-    "0.9.0",
-    "0.9.1",
-    "0.9.2",
-    "1.0.0",
-    "1.0.1",
-    "1.0.2",
-    "1.1.0",
-    "1.1.1",
-    "1.2.0",
-    "1.2.1",
-    "1.3.0",
-    "1.3.1",
-    "1.4.0",
-    "1.4.1",
-    "1.5.0",
-    "1.5.1",
-    "1.5.2",
     "1.6.0",
 ])
 
-SPARK_TACHYON_MAP = {
-    "1.0.0": "0.4.1",
-    "1.0.1": "0.4.1",
-    "1.0.2": "0.4.1",
-    "1.1.0": "0.5.0",
-    "1.1.1": "0.5.0",
-    "1.2.0": "0.5.0",
-    "1.2.1": "0.5.0",
-    "1.3.0": "0.5.0",
-    "1.3.1": "0.5.0",
-    "1.4.0": "0.6.4",
-    "1.4.1": "0.6.4",
-    "1.5.0": "0.7.1",
-    "1.5.1": "0.7.1",
-    "1.5.2": "0.7.1",
-    "1.6.0": "0.8.2",
+SPARK_ALLUXIO_MAP = {
+    "1.6.0": "1.0.0",
 }
 
 DEFAULT_SPARK_VERSION = SPARK_EC2_VERSION
@@ -101,7 +67,7 @@ DEFAULT_SPARK_GITHUB_REPO = "https://github.com/apache/spark"
 
 # Default location to get the spark-ec2 scripts (and ami-list) from
 DEFAULT_SPARK_EC2_GITHUB_REPO = "https://github.com/amplab/spark-ec2"
-DEFAULT_SPARK_EC2_BRANCH = "branch-1.5"
+DEFAULT_SPARK_EC2_BRANCH = "branch-1.6"
 
 
 def setup_external_libs(libs):
@@ -445,8 +411,8 @@ EC2_INSTANCE_TYPES = {
 }
 
 
-def get_tachyon_version(spark_version):
-    return SPARK_TACHYON_MAP.get(spark_version, "")
+def get_alluxio_version(spark_version):
+    return SPARK_ALLUXIO_MAP.get(spark_version, "")
 
 
 # Attempt to resolve an appropriate AMI given the architecture and region of the request.
@@ -808,7 +774,7 @@ def setup_cluster(conn, master_nodes, slave_nodes, opts, deploy_ssh_key):
             print(slave_address)
             ssh_write(slave_address, opts, ['tar', 'x'], dot_ssh_tar)
 
-    modules = ['spark', 'ephemeral-hdfs', 'mapreduce', 'spark-standalone', 'tachyon']
+    modules = ['spark', 'ephemeral-hdfs', 'mapreduce', 'spark-standalone', 'alluxio']
 
     if opts.hadoop_major_version == "1":
         modules = list(filter(lambda x: x != "mapreduce", modules))
@@ -1053,13 +1019,13 @@ def deploy_files(conn, root_dir, opts, master_nodes, slave_nodes, modules):
     if "." in opts.spark_version:
         # Pre-built Spark deploy
         spark_v = get_validate_spark_version(opts.spark_version, opts.spark_git_repo)
-        tachyon_v = get_tachyon_version(spark_v)
+        alluxio_v = get_alluxio_version(spark_v)
     else:
         # Spark-only custom deploy
         spark_v = "%s|%s" % (opts.spark_git_repo, opts.spark_version)
-        tachyon_v = ""
-        print("Deploying Spark via git hash; Tachyon won't be set up")
-        modules = filter(lambda x: x != "tachyon", modules)
+        alluxio_v = ""
+        print("Deploying Spark via git hash; Alluxio won't be set up")
+        modules = filter(lambda x: x != "alluxio", modules)
 
     master_addresses = [get_dns_name(i, opts.private_ips) for i in master_nodes]
     slave_addresses = [get_dns_name(i, opts.private_ips) for i in slave_nodes]
@@ -1075,7 +1041,7 @@ def deploy_files(conn, root_dir, opts, master_nodes, slave_nodes, modules):
         "swap": str(opts.swap),
         "modules": '\n'.join(modules),
         "spark_version": spark_v,
-        "tachyon_version": tachyon_v,
+        "alluxio_version": alluxio_v,
         "hadoop_major_version": opts.hadoop_major_version,
         "spark_worker_instances": worker_instances_str,
         "spark_master_opts": opts.master_opts
