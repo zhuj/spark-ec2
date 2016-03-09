@@ -5,5 +5,5 @@ source /root/.bash_profile
 
 # Start modules
 pushd /root/spark-ec2 > /dev/null
-source /root/setup-modules.sh
+source ./setup-modules.sh
 popd > /dev/null
