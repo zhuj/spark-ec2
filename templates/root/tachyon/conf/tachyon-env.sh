@@ -24,6 +24,7 @@ export TACHYON_UNDERFS_HDFS_IMPL=org.apache.hadoop.hdfs.DistributedFileSystem
 CONF_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export TACHYON_JAVA_OPTS+="
+  -Djava.net.preferIPv4Stack=true
   -Dlog4j.configuration=file:$CONF_DIR/log4j.properties
   -Dtachyon.debug=false
   -Dtachyon.underfs.address=$TACHYON_UNDERFS_ADDRESS
